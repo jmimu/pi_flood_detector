@@ -1,0 +1,31 @@
+<!doctype html>
+<head>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/raphael-min.js"></script>
+  <script src="lib/morris.js"></script>
+  <script src="lib/prettify.js"></script>
+  <script src="lib/example.js"></script>
+  <link rel="stylesheet" href="lib/example.css">
+  <link rel="stylesheet" href="lib/prettify.css">
+  <link rel="stylesheet" href="lib/morris.css">
+</head>
+<body>
+<h1>Timestamps</h1>
+<div id="graph"></div>
+<script>
+
+
+ $.getJSON("records.json", function(timestamp_data){
+    Morris.Line({
+      element: 'graph',
+      data: timestamp_data,
+      xkey: 'period',
+      ykeys: ['coin', 'centre','haut'],
+      labels: ['dans le coin', 'dans le centre','en haut'],
+      dateFormat: function (x) { return new Date(x).toDateString(); }
+    });
+ })
+
+
+</script>
+</body>
