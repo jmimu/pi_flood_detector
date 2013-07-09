@@ -2,7 +2,7 @@
 import os
 import sys, time, random
 import json
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 try:
   jsondata = json.load(open('/var/www/all_records.json'))
@@ -14,9 +14,9 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN)
 GPIO.setup(27, GPIO.IN)
 GPIO.setup(22, GPIO.IN)
-coin = GPIO.input(17)
-centre = GPIO.input(27)
-haut = GPIO.input(22)
+coin = 1-GPIO.input(17)
+centre = 1-GPIO.input(27)
+haut = 1-GPIO.input(22)
 
 timestamp=int(time.time()*1000)
 #~ coin=random.randint(0,1)
