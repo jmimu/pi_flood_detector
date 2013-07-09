@@ -21,7 +21,7 @@ sudo aptitude install apache2
 copy index.html, lib/ and read_flood_sensor.py to /var/www
 
 add it to cron:
-crontab -e
+sudo crontab -e
 
 add line:
 0,10,20,30,40,50 * * * * /var/www/read_flood_sensor.py

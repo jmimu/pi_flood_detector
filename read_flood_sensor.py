@@ -2,12 +2,12 @@
 import os
 import sys, time, random
 import json
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 
 try:
-  jsondata = json.load(open('/var/www/records.json'))
+  jsondata = json.load(open('/var/www/all_records.json'))
 except:
-  print "records.json not found, create a new file"
+  print "all_records.json not found, create a new file"
   jsondata=[]
 
 GPIO.setmode(GPIO.BCM)
@@ -26,7 +26,20 @@ new_record={"period": timestamp, "coin": coin, "centre": centre, "haut":haut}
 
 jsondata.append(new_record)
 
-f_out = open('/var/www/records.json', 'w')
+f_out = open('/var/www/all_records.json', 'w')
 ouput=json.dumps(jsondata, sort_keys=True, separators=(',', ': '))
+f_out.write(ouput)
+f_out.close()
+
+#export only last 24h for drawing
+
+timestamp_24h_before=timestamp-24*3600*1000
+jsondata_24h=[]
+for measure in jsondata:
+  if measure["period"]>timestamp_24h_before :
+    jsondata_24h.append(measure)
+
+f_out = open('/var/www/records24h.json', 'w')
+ouput=json.dumps(jsondata_24h, sort_keys=True, separators=(',', ': '))
 f_out.write(ouput)
 f_out.close()
